@@ -376,6 +376,10 @@ static void defineVariable(uint8_t global) {
     emitBytes(OP_DEFINE_GLOBAL, global);
 }
 
+static void defineRegister(uint8_t global) {
+    //?
+}
+
 static uint8_t argumentList() {
     uint8_t argCount = 0;
     if (!check(TOKEN_RIGHT_PAREN)) {
@@ -765,6 +769,14 @@ static void varDeclaration() {
     defineVariable(global);
 }
 
+static void regDeclaration() {
+    uint8_t regGlobal = parseVariable("Expect register name.");
+
+    consume(TOKEN_SEMICOLON, "Expect ';' after register declaration");
+
+    defineRegister(regGlobal);
+}
+
 static void expressionStatement() {
     expression();
     consume(TOKEN_SEMICOLON, "Expect ';' after expression.");
@@ -897,11 +909,13 @@ static void synchronize() {
             case TOKEN_CLASS:
             case TOKEN_FUN:
             case TOKEN_VAR:
+            case TOKEN_REGISTER:
             case TOKEN_FOR:
             case TOKEN_IF:
             case TOKEN_WHILE:
             case TOKEN_PRINT:
             case TOKEN_RETURN:
+            case TOKEN_YIELD:
                 return;
             
             default:
@@ -919,6 +933,8 @@ static void declaration() {
         funDeclaration();
     } else if (match(TOKEN_VAR)) {
         varDeclaration();
+    } else if (match(TOKEN_REGISTER)) {
+        regDeclaration();
     } else {
         statement();
     }
