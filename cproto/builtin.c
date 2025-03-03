@@ -12,6 +12,14 @@
 #include "vm.h"
 #include "debug.h"
 
+bool importBuiltin(ObjRoutine* routineContext, int argCount, Value* args, Value* result) {
+    if (argCount != 1) {
+        runtimeError(routineContext, "Expected 1 arguments but got %d.", argCount);
+        return false;
+    }
+    return true;
+}
+
 bool makeRoutineBuiltin(ObjRoutine* routineContext, int argCount, Value* args, Value* result) {
     if (argCount != 2) {
         runtimeError(routineContext, "Expected 2 arguments but got %d.", argCount);
