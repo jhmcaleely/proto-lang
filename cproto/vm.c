@@ -294,6 +294,16 @@ InterpretResult run(ObjRoutine* routine) {
             case OP_GET_BUILTIN: {
                 uint8_t builtin = READ_BYTE();
                 switch (builtin) {
+                    case BUILTIN_RPEEK: {
+                        Value builtinFn = OBJ_VAL(newNative(rpeekBuiltin));
+                        push(routine, builtinFn);
+                        break;                        
+                    }
+                    case BUILTIN_RPOKE: {
+                        Value builtinFn = OBJ_VAL(newNative(rpokeBuiltin));
+                        push(routine, builtinFn);
+                        break;                        
+                    }
                     case BUILTIN_IMPORT: {
                         Value builtinFn = OBJ_VAL(newNative(importBuiltin));
                         push(routine, builtinFn);
