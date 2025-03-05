@@ -32,8 +32,10 @@ InterpretResult interpretImport(const char* source) {
     push(routine, OBJ_VAL(closure));
     callfn(routine, closure, 0);
 
+    tempRootPush(OBJ_VAL(routine));
     InterpretResult result = run(routine);
-
+    tempRootPop();
+    
     pop(routine);
 
     return result;
