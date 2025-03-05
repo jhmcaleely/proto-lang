@@ -66,8 +66,6 @@ void initVM() {
     defineNative("sleep_ms", sleepNative);
 
     defineNative("gpio_init", gpioInitNative);
-    defineNative("gpio_set_direction", gpioSetDirectionNative);
-    defineNative("gpio_put", gpioPutNative);
 
     defineNative("alarm_add_in_ms", alarmAddInMSNative);
     defineNative("alarm_add_repeating_ms", alarmAddRepeatingMSNative);
