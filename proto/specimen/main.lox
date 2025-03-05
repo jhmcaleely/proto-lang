@@ -1,3 +1,0 @@
-import("machine");
-
-print coreNum();
